@@ -16,7 +16,6 @@ class CommentDetail extends Component{
         this.showmask();
     }
     componentWillMount(){
-        
         this.upadateDate()
         this.timer=setInterval(() => {
             this.upadateDate()

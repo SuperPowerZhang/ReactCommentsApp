@@ -53,7 +53,6 @@ class Comment extends Component{
         // .replace(/`([\S\s]+?)`/g, '<code>$1</code>')
     }
     handleClick(){
-        console.log(this.props.comment);
         this.props.modCurrent(this.props.comment);
     }
  

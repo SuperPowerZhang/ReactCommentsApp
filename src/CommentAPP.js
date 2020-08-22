@@ -45,15 +45,13 @@ class CommentApp extends Component {
             newcomment.id=1;
             comments[0]=newcomment;
         }
-        
-        
         this.modifyCurrent(newcomment)
         this.saveComments(comments);
     }
     //删除某个评论
-    handelDelCom(index) {
+    handelDelCom(id) {
         let comments = [...this.state.comments]
-        comments.splice(index-1, 1);
+        comments.splice(id-1, 1);
         this.saveComments(comments);
     }
     //在本地存储comments
@@ -162,7 +160,6 @@ class CommentApp extends Component {
                     <Route exact path='/' component={()=><CommentInput onSubmit={this.handleAdd}/>} >
                     </Route>
                     <Route exact path='/' component={()=><CommentFilter filtertransfer={this.changeFilter}/>} ></Route>
-                    {/* // save={this.saveComments.bind(this)} */}
                     <Route path='/commentlist' component={()=><CommentList update={this.updateTime.bind(this)} dellist={this.handelDelCom.bind(this)} filter={this.filterComments.bind(this)} modCurrent={this.modifyCurrent.bind(this)}/>}/>
                     <Route path='/comment' component={Comment} />
                     <Route path='/newcomment' component={()=><NewComment  current={this.state.current} update={this.updateTime.bind(this)} changeApp={this.handleChange.bind(this)}/>} />
