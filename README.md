@@ -1,1 +1,25 @@
 # CommentsApp
+
+主要分为Input（输入新的评论）、Fiter（输入筛选条件）、List（展示评论列表）和Detail（展示评论详情并有修改功能）四大功能块。index页面展示Input组件和Filter组件。
+
+App组件：包含所有的通用数据（comments：所有的评论数据，filter：筛选条件，current：当前要在Detail组件展示的comment）、路由（List、Comment、Newcomment和Detail）、和新增修改删除等修改评论数据的函数（willMount调用load函数：从localStorage中取数setState，saveComments：调用renewId函数更新整个comments的id，通用数据同时都存在localStorage中需要同步更新）。
+
+Input组件：用state存储新增的评论数据（含：姓名、内容、性别、爱好），Onclick时通过调用App组件的handleAdd将新的comment数据（此时加上date数值）setState进app的comments和current里。onClick后Link至Newcomment页面）。
+          
+Newcomment组件：由Detail组件+标题组成。
+
+Filter组件：用state存储选择的筛选条件（含姓名、性别、爱好个数）。修改筛选条件时调用App组件的changeFilter函数对App中的filter进行setState。同时Link至List组件页面。
+
+List组件：在WillMount时，调用App的filterComments函数，将要渲染数据的用Comment组件一项项展示出来。
+
+Comment组件：渲染每个comment的每个数据，另在willMount&Update时调用父组件（List/Newcomment）继而调用App的updateTime函数用当前时间与comment的创建时间date计算差值并渲染，并用setInterval每5s更新差值。
+两个功能：1、详情按钮点击调用父组件（List/Newcomment）继而调用App的modifyCurrent函数setState它的current数据，后Link去往Detail页面。
+2、删除按钮点击删除当前comment，调用父组件（List/Newcomment）继而调用App的handelDelCom函数setStatecomments删除对应的id的comment，同时saveComments再renewId更新整个comments的id。
+
+Detail组件：展示当前的comment，由父组件（App或Newcomment将current传给Detail），与comment相同在willMount&Update时计算时间差。一个功能：修改按钮点击弹出CommentModify组件（此时setState它的modibox的属性值，通过showmask函数控制mask遮罩的显示）。
+
+Modify组件：（固定定位）可以修改comment的name属性。使用父组件Detail的modibox值在willMount&Update时通过showmodify函数控制自己的显示。submit时调用父组件Detail的changeData函数，继而调用App组件的handleChange函数，修改App中的comments数据。
+
+样式写在comment.css文件中
+
+
